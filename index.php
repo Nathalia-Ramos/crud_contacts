@@ -1,27 +1,17 @@
 <?php
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
-
 require_once 'vendor/autoload.php';
+require_once 'env.php';
+require_once './src/slimConfiguration.php';
+require_once './routes/users.php';
 
 
-$appOptions = [
-    'settings' => [
-        'displayErrorDetails' => true,
-    ],
-];
+// $appOptions = [
+//     'settings' => [
+//         'displayErrorDetails' => true,
+//     ],
+// ];
 
-$app = new \Slim\App($appOptions);
-$container = $app->getContainer();
+// $app = new \Slim\App($appOptions);
+// $container = $app->getContainer();
 
-
-$app->get('/', function (Request $request, Response $response) {
-
-
-    $response->getBody()->write('OLAAAA');
-    return $response;
-
-});
-
-$app->run();
