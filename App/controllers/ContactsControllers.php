@@ -176,10 +176,10 @@ final class ContactsControllers  {
 
             if(!is_numeric($contactId)) {
                 $response
-                ->withStatus(400)
-                ->withHeader('Content-Type', 'application/json')
-                ->getBody()
-                ->write(json_encode(['error' => 'O campo id tem que ser um inteiro.']));
+                    ->withStatus(400)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()
+                    ->write(json_encode(['error' => 'O campo id tem que ser um inteiro.']));
 
                 return $response;
             }
@@ -204,10 +204,10 @@ final class ContactsControllers  {
             $contact->updateDeleteContactById($contactId);
 
             $response
-            ->withStatus(200)
-            ->withHeader('Content-Type', 'application/json')
-            ->getBody()
-            ->write(json_encode(['message' => 'Contato excluído com sucesso.'], JSON_UNESCAPED_UNICODE));
+                ->withStatus(200)
+                ->withHeader('Content-Type', 'application/json')
+                ->getBody()
+                ->write(json_encode(['message' => 'Contato excluído com sucesso.'], JSON_UNESCAPED_UNICODE));
 
 
             return $response;
