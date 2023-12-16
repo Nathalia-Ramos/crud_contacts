@@ -160,6 +160,152 @@ final class ContactsControllers  {
         }
     }
 
+    public function updateContact(Request $request, Response $response, array $args): Response {
+        try {
+            $contactId = $args['id'];
+
+            $data = $request->getParsedBody();
+
+            if (!isset($contactId)){
+                $response
+                    ->withStatus(400)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()
+                    ->write(json_encode(['error' => 'Parâmetro "id" não fornecido.']));
+    
+                return $response;
+            }
+
+            if(!is_numeric($contactId)) {
+                $response
+                    ->withStatus(400)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()
+                    ->write(json_encode(['error' => 'O campo id tem que ser um inteiro.']));
+
+                return $response;
+            }
+
+            $contact = new Contacts();
+            
+            $idExistVerify = $contact->getContactById($contactId);
+
+            if(!$idExistVerify){
+                $response
+                    ->withStatus(409)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()
+                    ->write(json_encode(['message' => 'O id informado não existe em nosso sistema.'], JSON_UNESCAPED_UNICODE));
+
+                return  $response;
+            }
+
+            if (isset($data['full_name']) && empty(trim($data['full_name']))) {
+                $response
+                    ->withStatus(409)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()
+                    ->write(json_encode(['message' => 'O campo full_name não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
+    
+                return $response;
+            }
+    
+            if(isset($data['birthday']) && empty(trim($data['birthday']))){
+                if(!$idExistVerify){
+                    $response
+                        ->withStatus(409)
+                        ->withHeader('Content-Type', 'application/json')
+                        ->getBody()
+                        ->write(json_encode(['error' => 'O campo birthday não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
+    
+                    return  $response;
+                }          
+            }
+
+            if(isset($data['mail']) && empty($data['mail'])){
+                if(!$idExistVerify){
+                    $response
+                        ->withStatus(409)
+                        ->withHeader('Content-Type', 'application/json')
+                        ->getBody()
+                        ->write(json_encode(['error' => 'O campo mail não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
+    
+                    return  $response;
+                }          
+            }
+
+            if(isset($data['occupation']) && empty($data['occupation'])){
+                if(!$idExistVerify){
+                    $response
+                        ->withStatus(409)
+                        ->withHeader('Content-Type', 'application/json')
+                        ->getBody()
+                        ->write(json_encode(['error' => 'O campo occupation não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
+    
+                    return  $response;
+                }          
+            }
+
+            if(isset($data['phone']) && empty($data['phone'])){
+                if(!$idExistVerify){
+                    $response
+                        ->withStatus(409)
+                        ->withHeader('Content-Type', 'application/json')
+                        ->getBody()
+                        ->write(json_encode(['error' => 'O campo phone não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
+    
+                    return  $response;
+                }          
+            }
+
+            if(isset($data['cellphone']) && empty($data['cellphone'])){
+                if(!$idExistVerify){
+                    $response
+                        ->withStatus(409)
+                        ->withHeader('Content-Type', 'application/json')
+                        ->getBody()
+                        ->write(json_encode(['error' => 'O campo phone não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
+    
+                    return  $response;
+                }          
+            }
+
+            $lastDataContact = $contact->getContactById($contactId);
+
+            var_dump($lastDataContact);
+
+            $contact->updateContactById(
+                $data['full_name'] ,
+                $data['birthday'] ,
+                $data['mail'],
+                $data['occupation'],
+                $data['phone'],
+                $data['cellphone'],            
+                $contactId    
+            );
+    
+            $response
+                ->withStatus(200)
+                ->withHeader('Content-Type', 'application/json')
+                ->getBody()
+                ->write(json_encode(['message' => 'Contato atualizado com sucesso.']));
+    
+
+
+            return $response;
+        } catch (Exception $e) {
+            var_dump($e);
+
+            $response
+                ->withStatus(500)
+                ->withHeader('Content-Type', 'application/json')
+                ->getBody()
+                ->write(json_encode(['error' => 'Erro interno no servidor.']));
+
+            return $response;
+        }
+    }
+
     public function deleteContact(Request $request, Response $response, array $args) : Response {
         try {
             $contactId = $args['id'];

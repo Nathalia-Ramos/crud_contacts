@@ -70,7 +70,7 @@ class Contacts extends Database {
     }
 
     public function getContactById($id) {
-        $query = $this->pdo->prepare('SELECT id FROM contacts WHERE deleted = 0 AND actived = 1 AND id = ?');
+        $query = $this->pdo->prepare('SELECT * FROM contacts WHERE deleted = 0 AND actived = 1 AND id = ?');
         $query->execute([$id]);
     
         $result = $query->fetchAll(\PDO::FETCH_ASSOC);
@@ -78,6 +78,23 @@ class Contacts extends Database {
         return $result;
     }
 
+    public function updateContactById($full_name, $birthday, $mail, $occupation, $phone, $cellphone, $id) {
+        $query = $this->pdo->prepare('
+            UPDATE contacts
+            SET
+            full_name = COALESCE(?, full_name),
+            birthday = COALESCE(?, birthday),
+            mail = COALESCE(?, mail),
+            occupation = COALESCE(?, occupation),
+            phone = COALESCE(?, phone),
+            cellphone = COALESCE(?, cellphone)
+            WHERE
+                id = ?
+        ');
+    
+        $query->execute([$full_name, $birthday, $mail, $occupation, $phone, $cellphone, $id]);
+    }
+    
     public function updateDeleteContactById($id) {
         $query = $this->pdo->prepare('UPDATE contacts SET deleted = 1 WHERE id = ?');
         $query = $query->execute([$id]);
