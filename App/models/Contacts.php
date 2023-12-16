@@ -68,4 +68,18 @@ class Contacts extends Database {
     
         return $result;
     }
+
+    public function getContactById($id) {
+        $query = $this->pdo->prepare('SELECT id FROM contacts WHERE deleted = 0 AND actived = 1 AND id = ?');
+        $query->execute([$id]);
+    
+        $result = $query->fetchAll(\PDO::FETCH_ASSOC);
+    
+        return $result;
+    }
+
+    public function updateDeleteContactById($id) {
+        $query = $this->pdo->prepare('UPDATE contacts SET deleted = 1 WHERE id = ?');
+        $query = $query->execute([$id]);
+    }
 }

@@ -9,6 +9,27 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 final class ContactsControllers  {
 
+    public function getContacts(Request $request, Response $response, array $args): Response {
+        $contact = new Contacts();
+    
+        $contacts = $contact->getAllContacts();
+    
+        if (empty($contacts)) {
+            $response
+                ->withStatus(404)
+                ->withHeader('Content-Type', 'application/json')
+                ->getBody()->write(json_encode(['error' => 'Nenhum contato encontrado']));
+
+            return $response;
+        }
+    
+        $response->getBody()->write(json_encode($contacts));
+    
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+    }
+
     public function createContact(Request $request, Response $response, array $args): Response {
         try {
             $data = $request->getParsedBody();
@@ -45,7 +66,6 @@ final class ContactsControllers  {
             }
 
             $contact = new Contacts();
-            
             //verifica se existe o mail, phone ou telefone cadastrado
             if(isset($data['mail'])){
                 $mailExistVerify = $contact->getContactByMail($data['mail']);
@@ -140,25 +160,68 @@ final class ContactsControllers  {
         }
     }
 
-    public function getContacts(Request $request, Response $response, array $args): Response {
-        $contact = new Contacts();
+    public function deleteContact(Request $request, Response $response, array $args) : Response {
+        try {
+            $contactId = $args['id'];
+            
+            if (!isset($contactId)){
+                $response
+                    ->withStatus(400)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()
+                    ->write(json_encode(['error' => 'Parâmetro "id" não fornecido.']));
     
-        $contacts = $contact->getAllContacts();
-    
-        if (empty($contacts)) {
-            $response
-                ->withStatus(404)
+                return $response;
+            }
+
+            if(!is_numeric($contactId)) {
+                $response
+                ->withStatus(400)
                 ->withHeader('Content-Type', 'application/json')
-                ->getBody()->write(json_encode(['error' => 'Nenhum contato encontrado']));
+                ->getBody()
+                ->write(json_encode(['error' => 'O campo id tem que ser um inteiro.']));
+
+                return $response;
+            }
+
+
+            $contact = new Contacts();
+
+            if(isset($contactId)){
+                $idExistVerify = $contact->getContactById($contactId);
+    
+                if(!$idExistVerify){
+                    $response
+                    ->withStatus(409)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()
+                    ->write(json_encode(['message' => 'O id informado não existe em nosso sistema.'], JSON_UNESCAPED_UNICODE));
+    
+                    return  $response;
+                }
+            }
+
+            $contact->updateDeleteContactById($contactId);
+
+            $response
+            ->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->getBody()
+            ->write(json_encode(['message' => 'Contato excluído com sucesso.'], JSON_UNESCAPED_UNICODE));
+
+
+            return $response;
+
+        } catch (Exception $e){  
+            $response
+            ->withStatus(500)
+            ->withHeader('Content-Type', 'application/json')
+            ->getBody()
+            ->write(json_encode(['error' => 'Erro interno no servidor.']));
 
             return $response;
         }
-    
-        $response->getBody()->write(json_encode($contacts));
-    
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(200);
     }
-    
+
+   
 }
