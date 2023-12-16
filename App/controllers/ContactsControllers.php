@@ -192,7 +192,7 @@ final class ContactsControllers  {
 
             if(!$idExistVerify){
                 $response
-                    ->withStatus(409)
+                    ->withStatus(404)
                     ->withHeader('Content-Type', 'application/json')
                     ->getBody()
                     ->write(json_encode(['message' => 'O id informado não existe em nosso sistema.'], JSON_UNESCAPED_UNICODE));
@@ -202,7 +202,7 @@ final class ContactsControllers  {
 
             if (isset($data['full_name']) && empty(trim($data['full_name']))) {
                 $response
-                    ->withStatus(409)
+                    ->withStatus(400)
                     ->withHeader('Content-Type', 'application/json')
                     ->getBody()
                     ->write(json_encode(['message' => 'O campo full_name não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
@@ -210,69 +210,57 @@ final class ContactsControllers  {
                 return $response;
             }
     
-            if(isset($data['birthday']) && empty(trim($data['birthday']))){
-                if(!$idExistVerify){
+            if (isset($data['birthday']) && empty(trim($data['birthday']))) {
                     $response
-                        ->withStatus(409)
+                        ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
                         ->getBody()
                         ->write(json_encode(['error' => 'O campo birthday não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
     
-                    return  $response;
-                }          
+                    return  $response;       
             }
 
-            if(isset($data['mail']) && empty($data['mail'])){
-                if(!$idExistVerify){
+            if (isset($data['mail']) && empty(trim($data['mail']))) {
                     $response
-                        ->withStatus(409)
+                        ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
                         ->getBody()
                         ->write(json_encode(['error' => 'O campo mail não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
     
-                    return  $response;
-                }          
+                    return  $response;        
             }
 
-            if(isset($data['occupation']) && empty($data['occupation'])){
-                if(!$idExistVerify){
+            if (isset($data['occupation']) && empty(trim($data['occupation']))) {
                     $response
-                        ->withStatus(409)
+                        ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
                         ->getBody()
                         ->write(json_encode(['error' => 'O campo occupation não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
     
-                    return  $response;
-                }          
+                    return  $response;          
             }
 
-            if(isset($data['phone']) && empty($data['phone'])){
-                if(!$idExistVerify){
+            if (isset($data['phone']) && empty(trim($data['phone']))) {
                     $response
-                        ->withStatus(409)
+                        ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
                         ->getBody()
                         ->write(json_encode(['error' => 'O campo phone não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
     
-                    return  $response;
-                }          
+                    return  $response;                       
             }
 
-            if(isset($data['cellphone']) && empty($data['cellphone'])){
-                if(!$idExistVerify){
+            if (isset($data['cellphone']) && empty(trim($data['cellphone']))) {
                     $response
-                        ->withStatus(409)
+                        ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
                         ->getBody()
-                        ->write(json_encode(['error' => 'O campo phone não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
+                        ->write(json_encode(['error' => 'O campo cellphone não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
     
                     return  $response;
                 }          
-            }
 
             $lastDataContact = $contact->getContactById($contactId);
-
-            var_dump($lastDataContact);
 
             $contact->updateContactById(
                 $data['full_name'] ,
