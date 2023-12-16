@@ -26,15 +26,24 @@ class Contacts extends Database {
 
         $query->execute();
     }
-
     public function getAllContacts() {
-        $result = $this->pdo->query('SELECT * FROM contacts ORDER BY id desc')->fetchAll(\PDO::FETCH_ASSOC);
-
+        $result = $this->pdo->query("
+            SELECT 
+                id, 
+                full_name, 
+                birthday, 
+                mail, 
+                occupation, 
+                phone 
+            FROM contacts 
+            WHERE deleted = 0 AND actived = 1 
+            ORDER BY id desc")->fetchAll(\PDO::FETCH_ASSOC);
+    
         return $result;
-    } 
+    }    
 
     public function getContactByMail($mail) {
-        $query = $this->pdo->prepare('SELECT * FROM contacts WHERE mail = ?');
+        $query = $this->pdo->prepare('SELECT mail FROM contacts WHERE deleted = 0 AND actived = 1 AND mail = ?');
         $query->execute([$mail]);
     
         $result = $query->fetchAll(\PDO::FETCH_ASSOC);
@@ -43,7 +52,7 @@ class Contacts extends Database {
     }
 
     public function getContactByPhone($phone) {
-        $query = $this->pdo->prepare('SELECT * FROM contacts WHERE phone = ?');
+        $query = $this->pdo->prepare('SELECT phone FROM contacts WHERE deleted = 0 AND actived = 1 AND phone = ?');
         $query->execute([$phone]);
     
         $result = $query->fetchAll(\PDO::FETCH_ASSOC);
@@ -52,7 +61,7 @@ class Contacts extends Database {
     }
 
     public function getContactByCellPhone($cellphone) {
-        $query = $this->pdo->prepare('SELECT * FROM contacts WHERE cellphone = ?');
+        $query = $this->pdo->prepare('SELECT cellphone FROM contacts WHERE deleted = 0 AND actived = 1 AND cellphone = ?');
         $query->execute([$cellphone]);
     
         $result = $query->fetchAll(\PDO::FETCH_ASSOC);

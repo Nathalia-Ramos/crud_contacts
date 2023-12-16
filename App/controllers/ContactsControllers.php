@@ -45,7 +45,7 @@ final class ContactsControllers  {
             }
 
             $contact = new Contacts();
-
+            
             //verifica se existe o mail, phone ou telefone cadastrado
             if(isset($data['mail'])){
                 $mailExistVerify = $contact->getContactByMail($data['mail']);
@@ -96,7 +96,7 @@ final class ContactsControllers  {
                 }
 
                 $cellphoneExistVerify = $contact->getContactByCellPhone($data['cellphone']);
-                
+
                 if($cellphoneExistVerify) {
                     $response
                     ->withStatus(409)
