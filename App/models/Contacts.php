@@ -34,7 +34,8 @@ class Contacts extends Database {
                 birthday, 
                 mail, 
                 occupation, 
-                phone 
+                phone,
+                cellphone
             FROM contacts 
             WHERE deleted = 0 AND actived = 1 
             ORDER BY id desc")->fetchAll(\PDO::FETCH_ASSOC);
