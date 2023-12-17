@@ -1,4 +1,3 @@
-
 const listContacts = async () => {
     try {
         const contacts = await $.ajax(`${location.origin}/api/contacts`);
@@ -26,6 +25,14 @@ const listContacts = async () => {
 
 
 $(document).ready(function() {
+
+    //mask
+    const cellphone = $('#cellphone');
+    cellphone.inputmask('(99) 99999-9999');
+
+    const phone = $('#phone');
+    phone.inputmask('(99) 9999-9999');
+
     const contactELm = $('#form-contact');
 
     contactELm.on('submit', async event => {
