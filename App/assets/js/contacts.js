@@ -42,6 +42,22 @@ const updateContact = async (contactId) => {
     }
 };
 
+const deleteContact = async (contactId) => {
+    try {
+        await $.ajax({
+            url: `${location.origin}/api/contacts/${contactId}`,
+            method: 'PUT',
+            contentType: 'application/json',
+        });
+
+        alert('contato excluído com sucesso');
+        location.reload(true);
+    } catch (err) {
+        console.error(err);
+        alert('Erro ao atualizar o contato!');
+    }
+};
+
 const listContacts = async () => {
     try {
         const contacts = await $.ajax(`${location.origin}/api/contacts`);
