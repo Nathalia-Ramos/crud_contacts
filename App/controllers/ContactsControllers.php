@@ -81,7 +81,9 @@ final class ContactsControllers  {
             }
 
             if(isset($data['phone'])){
-                if (strlen($data['phone']) > 10) {
+                $phone = preg_replace('/[^0-9]/', '', $data['phone']);
+
+                if (strlen($phone) > 10) {
                     $response
                         ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
@@ -105,7 +107,11 @@ final class ContactsControllers  {
             }
 
             if(isset($data['cellphone'])){
-                if (strlen($data['cellphone']) > 11) {
+                $cellphone = preg_replace('/[^0-9]/', '', $data['cellphone']);
+
+                var_dump($cellphone);
+
+                if (strlen($cellphone) > 11) {
                     $response
                         ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
@@ -355,6 +361,42 @@ final class ContactsControllers  {
 
             return $response;
         }
+    }
+
+    public function getContactById(Request $request, Response $response, array $args) : Response{
+        try {
+    
+            $contactId = $args['id'];
+    
+            $contact = new Contacts();
+        
+            $contacts = $contact->getContactById($contactId);
+
+            if (!isset($contacts)) {
+                $response
+                    ->withStatus(404)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->getBody()->write(json_encode(['error' => 'Nenhum contato encontrado']));
+    
+                return $response;
+            }
+
+            //mudar para  retornar um objeto e nao um array de objeto
+            $response->getBody()->write(json_encode($contacts));
+
+            return $response;
+
+        } catch (\Exception $e) {
+            var_dump($e);
+            $response
+                ->withStatus(500)
+                ->withHeader('Content-Type', 'application/json')
+                ->getBody()
+                ->write(json_encode(['error' => 'Erro interno no servidor.']));
+
+            return $response;
+        }    
+
     }
 
    

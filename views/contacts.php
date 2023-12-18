@@ -70,7 +70,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12 text-end">
-                                    <button type="submit" class="btn btn-primary">Cadastrar Contato</button>
+                                   <button type="submit" class="btn btn-primary" id="submitButton">Cadastrar Contato</button>
                                 </div>
                             </div>
                         </div>
