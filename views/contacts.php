@@ -4,9 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../App/assets/css/bootstrap.min.css">
-        <script src="../App/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-        
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+        <script src="../App/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
         <script src="../App/assets/js/contacts.js"></script>
         <script src="../App/assets/js/main.js"></script>
@@ -89,6 +88,23 @@
                 </thead>
                 <tbody id="contactsId"></tbody>
             </table>
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirme exclusão</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza de que deseja excluir este contato?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <div class="container" style="background-color: #068ED0">
                     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-5 border-top ">
                         <div class="text-light">Termos | Políticas</div>

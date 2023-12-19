@@ -1,6 +1,7 @@
-const updateContact = async (contactId) => {
+
+const updateContact = async (id) => {
     try {
-        const response = await $.ajax(`${location.origin}/api/contact/${contactId}`);
+        const response = await $.ajax(`${location.origin}/api/contact/${id}`);
 
         const contact = JSON.parse(response)[0];
 
@@ -14,9 +15,11 @@ const updateContact = async (contactId) => {
         $('#submitButton').text('Atualizar Contato');
 
         $('.btn-primary').on('click', async (e) => {
+            e.preventDefault();
+            location.reload(true);
             try {
                 await $.ajax({
-                    url: `${location.origin}/api/contacts/update/${contactId}`,
+                    url: `${location.origin}/api/contacts/update/${id}`,
                     method: 'PUT',
                     contentType: 'application/json',
                     data: JSON.stringify({
@@ -28,8 +31,7 @@ const updateContact = async (contactId) => {
                         phone: $('#phone').val()
                     }),
                 });
-                e.preventDefault();
-                location.reload(true);
+  
             } catch (err) {
                 console.error(err);
                 alert('Erro ao atualizar o contato!');
@@ -50,8 +52,10 @@ const deleteContact = async (contactId) => {
             contentType: 'application/json',
         });
 
-        alert('contato excluído com sucesso');
         location.reload(true);
+
+
+        // alert('contato excluído com sucesso');
     } catch (err) {
         console.error(err);
         alert('Erro ao atualizar o contato!');
@@ -75,8 +79,8 @@ const listContacts = async () => {
                     <td>${contact.cellphone}</td>
                     <td>
                         <button class="btn btn-info" onclick="updateContact(${contact.id})">Editar</button>
-                        <button class="btn btn-danger" onclick="deleteContact(${contact.id})">Excluir</button>
-                    </td>
+                        <button id="btn-delete-contact" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-contact-id="${contact.id}">Excluir</button>
+                        </td>
                 </tr>
             `);
         });
@@ -88,6 +92,21 @@ const listContacts = async () => {
 };
 
 $(document).ready(function() {
+
+    $(document).on('click', '#btn-delete-contact', function() {
+        const contactId = $(this).data('contact-id');
+
+        $('#confirmDeleteModal').data('contact-id', contactId);
+
+        $('#confirmDeleteModal').modal('show');
+    }); 
+
+    $('#confirmDeleteBtn').on('click', async function() {
+        const contactId = $('#confirmDeleteModal').data('contact-id');
+        await deleteContact(contactId);
+
+        $('#confirmDeleteModal').modal('hide');
+    });
 
     // mask - descomentar depois
     // const cellphone = $('#cellphone');
@@ -135,9 +154,9 @@ $(document).ready(function() {
     };
 
     const contactELm = $('#form-contact');
-    contactELm.on('submit', function (event) {
-        event.preventDefault();
-        createContact();;
+    contactELm.on('submit', function (e) {
+        e.preventDefault();
+        createContact();
     });
 
     listContacts();
