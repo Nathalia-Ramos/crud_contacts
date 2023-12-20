@@ -82,7 +82,6 @@ final class ContactsControllers  {
 
             if(isset($data['phone'])){
                 $phone = preg_replace('/[\(\)\-\s]/', '', $data['phone']);
-                var_dump($phone);
 
                 if (strlen($phone) > 10) {
                     $response
@@ -157,7 +156,6 @@ final class ContactsControllers  {
             return $response;
 
         } catch (Exception $e) {
-            var_dump($e);
             $response
                 ->withStatus(500)
                 ->withHeader('Content-Type', 'application/json')
@@ -278,7 +276,7 @@ final class ContactsControllers  {
 
             $data['phone'] = $phone;
             $data['cellphone'] = $cellphone;
-            
+
             $contact->updateContactById(
                 $data['full_name'] ,
                 $data['birthday'] ,
@@ -299,8 +297,6 @@ final class ContactsControllers  {
 
             return $response;
         } catch (Exception $e) {
-            var_dump($e);
-
             $response
                 ->withStatus(500)
                 ->withHeader('Content-Type', 'application/json')
@@ -398,7 +394,6 @@ final class ContactsControllers  {
             return $response;
 
         } catch (\Exception $e) {
-            var_dump($e);
             $response
                 ->withStatus(500)
                 ->withHeader('Content-Type', 'application/json')

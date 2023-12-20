@@ -78,8 +78,7 @@
                     </div>
                     <hr class="my-5">
             </form>
-
-            <div class="d-flex flex-column" style="height: 300px; overflow-y: auto; ">
+            <div class="d-flex flex-column" style="height: 250px; overflow-y: auto;">
                 <table class="table">
                     <thead>
                         <tr>

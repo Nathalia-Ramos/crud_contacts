@@ -41,13 +41,11 @@ const updateContact = async (id) => {
 
   
             } catch (err) {
-                console.error(err);
                 showToast('Erro ao atualizar o contato!');
             }
         });
 
     } catch (err) {
-        console.error(err);
         showToast('Não foi possível carregar os dados do contato para edição!');
     }
 };
@@ -67,7 +65,6 @@ const deleteContact = async (contactId) => {
         }, 3000);
 
     } catch (err) {
-        console.error(err);
         showToast('Erro ao atualizar o contato!');
     }
 };
@@ -95,7 +92,6 @@ const listContacts = async () => {
         });
 
     } catch (err) {
-        console.error(err);
         showToast('Não foi possível listar os contatos!');
     }   
 };
@@ -140,14 +136,12 @@ $(document).ready(function() {
             
                 },
                 error: function (err) {
-                    console.error(err);
                     showToast('Não foi possível cadastrar o contato!');
                 }
             });
             
 
         } catch (err) {
-            console.error(err);
             showToast('Não foi possível cadastrar o contato!');
         }
     };
