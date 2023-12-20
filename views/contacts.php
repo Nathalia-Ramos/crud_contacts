@@ -23,6 +23,7 @@
                 </div>
                 </div>
             </div>
+
             <form id="form-contact">
                 <div class="container">
                     <div class="row">
@@ -77,18 +78,22 @@
                     </div>
                     <hr class="my-5">
             </form>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-white" style="background-color: #068ED0;">Nome</th>
-                        <th scope="col" class="text-white" style="background-color: #068ED0;">Data de Nascimento</th>
-                        <th scope="col" class="text-white" style="background-color: #068ED0;">E-mail</th>
-                        <th scope="col" class="text-white" style="background-color: #068ED0;">Celular para Contato</th>
-                        <th scope="col" class="text-white" style="background-color: #068ED0;">Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="contactsId"></tbody>
-            </table>
+
+            <div class="d-flex flex-column" style="height: 300px; overflow-y: auto; ">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-white" style="background-color: #068ED0;">Nome</th>
+                            <th scope="col" class="text-white" style="background-color: #068ED0;">Data de Nascimento</th>
+                            <th scope="col" class="text-white" style="background-color: #068ED0;">E-mail</th>
+                            <th scope="col" class="text-white" style="background-color: #068ED0;">Celular para Contato</th>
+                            <th scope="col" class="text-white" style="background-color: #068ED0;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contactsId"></tbody>
+                </table>
+            </div>
+
             <div class="modal fade " id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -106,6 +111,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="container" style="background-color: #068ED0">
                     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-5 border-top ">
                         <div class="text-light">Termos | Políticas</div>
@@ -116,10 +122,11 @@
                         <div class="text-light">&copy; Alphacode IT Solutions 2023</div>
                     </footer>
             </div>
+
             <div class="toast custom-toast bg-gradient-primary text-black" style="position: absolute; top: 10px; right: 10px; width: 300px; border-radius: 8px; z-index: 2000;">
                 <div class="toast-body text-black"></div>
             </div>
+
             </div>
-        </div>
         </body>
     </html>

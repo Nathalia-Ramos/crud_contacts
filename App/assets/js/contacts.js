@@ -85,7 +85,7 @@ const listContacts = async () => {
                     <td>${contact.full_name}</td>
                     <td>${contact.birthday}</td>
                     <td>${contact.mail}</td>
-                    <td>${contact.cellphone}</td>
+                    <td>(${contact.cellphone.substring(0, 2)}) ${contact.cellphone.substring(2, 6)}-${contact.cellphone.substring(6)}</td>
                     <td>
                         <button class="btn btn-info" onclick="updateContact(${contact.id})">Editar</button>
                         <button id="btn-delete-contact" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-contact-id="${contact.id}">Excluir</button>
