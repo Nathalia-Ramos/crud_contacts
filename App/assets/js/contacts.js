@@ -38,17 +38,16 @@ const updateContact = async (id) => {
                 });
 
                 showToast('Contato atualizo com sucesso!');
-                
-                setTimeout(() => {
-                    location.reload(true);
-                }, 3000);       
+
   
             } catch (err) {
+                console.error(err);
                 showToast('Erro ao atualizar o contato!');
             }
         });
 
     } catch (err) {
+        console.error(err);
         showToast('Não foi possível carregar os dados do contato para edição!');
     }
 };
@@ -68,6 +67,7 @@ const deleteContact = async (contactId) => {
         }, 3000);
 
     } catch (err) {
+        console.error(err);
         showToast('Erro ao atualizar o contato!');
     }
 };
@@ -85,7 +85,7 @@ const listContacts = async () => {
                     <td>${contact.full_name}</td>
                     <td>${contact.birthday}</td>
                     <td>${contact.mail}</td>
-                    <td>(${contact.cellphone.substring(0, 2)}) ${contact.cellphone.substring(2, 6)}-${contact.cellphone.substring(6)}</td>
+                    <td>${contact.cellphone}</td>
                     <td>
                         <button class="btn btn-info" onclick="updateContact(${contact.id})">Editar</button>
                         <button id="btn-delete-contact" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-contact-id="${contact.id}">Excluir</button>
@@ -95,6 +95,7 @@ const listContacts = async () => {
         });
 
     } catch (err) {
+        console.error(err);
         showToast('Não foi possível listar os contatos!');
     }   
 };
@@ -139,12 +140,14 @@ $(document).ready(function() {
             
                 },
                 error: function (err) {
+                    console.error(err);
                     showToast('Não foi possível cadastrar o contato!');
                 }
             });
             
 
         } catch (err) {
+            console.error(err);
             showToast('Não foi possível cadastrar o contato!');
         }
     };
@@ -172,5 +175,4 @@ $(document).ready(function() {
 
     listContacts();
 });
-
 

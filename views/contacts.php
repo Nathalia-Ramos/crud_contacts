@@ -78,6 +78,7 @@
                     </div>
                     <hr class="my-5">
             </form>
+            
             <div class="d-flex flex-column" style="height: 250px; overflow-y: auto;">
                 <table class="table">
                     <thead>
@@ -124,8 +125,6 @@
 
             <div class="toast custom-toast bg-gradient-primary text-black" style="position: absolute; top: 10px; right: 10px; width: 300px; border-radius: 8px; z-index: 2000;">
                 <div class="toast-body text-black"></div>
-            </div>
-
             </div>
         </body>
     </html>
