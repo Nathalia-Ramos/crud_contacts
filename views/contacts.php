@@ -118,8 +118,8 @@
                         <div class="text-light">&copy; Alphacode IT Solutions 2023</div>
                     </footer>
             </div>
-            <div class="toast custom-toast bg-info text-black" style="position: absolute; top: 10px; right: 10px; width: 300px; border-radius: 8px; z-index: 2000;">
-                <div class="toast-body text-white"></div>
+            <div class="toast custom-toast bg-gradient-primary text-black" style="position: absolute; top: 10px; right: 10px; width: 300px; border-radius: 8px; z-index: 2000;">
+                <div class="toast-body text-black"></div>
             </div>
             </div>
         </div>

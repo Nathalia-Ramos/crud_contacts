@@ -102,11 +102,11 @@ const listContacts = async () => {
 $(document).ready(function() {
 
     // mask - descomentar depois
-    // const cellphone = $('#cellphone');
-    // cellphone.inputmask('(99) 99999-9999');
+    const cellphone = $('#cellphone');
+    cellphone.inputmask('(99) 99999-9999');
 
-    // const phone = $('#phone');
-    // phone.inputmask('(99) 9999-9999');
+    const phone = $('#phone');
+    phone.inputmask('(99) 9999-9999');
 
     const createContact = async () => {
         try {
@@ -131,14 +131,20 @@ $(document).ready(function() {
                 method: 'POST',
                 data: payload,
                 success: function () {
-                    listContacts();
-                    $('#form-contact').trigger('reset');
+                    showToast('Contato cadastrado com sucesso!');
+            
+                    setTimeout(() => {
+                        listContacts();
+                        $('#form-contact').trigger('reset');
+                    }, 2000); 
+            
                 },
                 error: function (err) {
                     console.error(err);
                     showToast('Não foi possível cadastrar o contato!');
                 }
             });
+            
 
         } catch (err) {
             console.error(err);

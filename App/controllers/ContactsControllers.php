@@ -81,14 +81,15 @@ final class ContactsControllers  {
             }
 
             if(isset($data['phone'])){
-                $phone = preg_replace('/[^0-9]/', '', $data['phone']);
+                $phone = preg_replace('/[\(\)\-\s]/', '', $data['phone']);
+                var_dump($phone);
 
                 if (strlen($phone) > 10) {
                     $response
                         ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
                         ->getBody()
-                        ->write(json_encode(['error' => 'Informe um número de telefone válido.'], JSON_UNESCAPED_UNICODE)); //verificar se o JSON_UNESCAPED_UNICODE é algo válido
+                        ->write(json_encode(['error' => 'Informe um número de telefone válido.'], JSON_UNESCAPED_UNICODE)); 
                     
                     return $response;
                 }
@@ -107,7 +108,7 @@ final class ContactsControllers  {
             }
 
             if(isset($data['cellphone'])){
-                $cellphone = preg_replace('/[^0-9]/', '', $data['cellphone']);
+                $cellphone = preg_replace('/[\(\)\-\s]/', '', $data['cellphone']);
 
                 var_dump($cellphone);
 
@@ -133,6 +134,9 @@ final class ContactsControllers  {
                     return  $response;
                 }
             }
+            
+            $data['phone'] = $phone;
+            $data['cellphone'] = $cellphone;
 
             $contact->createContact(
                 $data['full_name'],
