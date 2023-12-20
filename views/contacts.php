@@ -6,7 +6,10 @@
         <link rel="stylesheet" href="../App/assets/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
         <script src="../App/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+        
         <script src="../App/assets/js/contacts.js"></script>
         <script src="../App/assets/js/main.js"></script>
         <title>Contatos</title>
@@ -88,7 +91,7 @@
                 </thead>
                 <tbody id="contactsId"></tbody>
             </table>
-            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+            <div class="modal fade " id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -115,5 +118,10 @@
                         <div class="text-light">&copy; Alphacode IT Solutions 2023</div>
                     </footer>
             </div>
+            <div class="toast custom-toast bg-info text-black" style="position: absolute; top: 10px; right: 10px; width: 300px; border-radius: 8px; z-index: 2000;">
+                <div class="toast-body text-white"></div>
+            </div>
+            </div>
+        </div>
         </body>
     </html>

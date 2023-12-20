@@ -1,3 +1,10 @@
+const showToast = (message) => {  
+    const toastElm = $('.custom-toast');
+    toastElm.find('.toast-body').text(message);
+
+    toastElm.toast('show');
+
+}
 
 const updateContact = async (id) => {
     try {
@@ -34,13 +41,13 @@ const updateContact = async (id) => {
   
             } catch (err) {
                 console.error(err);
-                alert('Erro ao atualizar o contato!');
+                showToast('Erro ao atualizar o contato!');
             }
         });
 
     } catch (err) {
         console.error(err);
-        alert('Não foi possível carregar os dados do contato para edição!');
+        showToast('Não foi possível carregar os dados do contato para edição!');
     }
 };
 
@@ -52,21 +59,22 @@ const deleteContact = async (contactId) => {
             contentType: 'application/json',
         });
 
-        location.reload(true);
+        showToast('Contato excluído com sucesso!');
 
+        setTimeout(() => {
+            location.reload(true);
+        }, 3000);
 
-        // alert('contato excluído com sucesso');
     } catch (err) {
         console.error(err);
-        alert('Erro ao atualizar o contato!');
+        showToast('Erro ao atualizar o contato!');
     }
 };
+
 
 const listContacts = async () => {
     try {
         const contacts = await $.ajax(`${location.origin}/api/contacts`);
-
-        if (!contacts.length) alert("No contacts");
 
         $('#contactsId').empty();
 
@@ -87,26 +95,11 @@ const listContacts = async () => {
 
     } catch (err) {
         console.error(err);
-        alert('Não foi possível listar os contatos!');
+        showToast('Não foi possível listar os contatos!');
     }   
 };
 
 $(document).ready(function() {
-
-    $(document).on('click', '#btn-delete-contact', function() {
-        const contactId = $(this).data('contact-id');
-
-        $('#confirmDeleteModal').data('contact-id', contactId);
-
-        $('#confirmDeleteModal').modal('show');
-    }); 
-
-    $('#confirmDeleteBtn').on('click', async function() {
-        const contactId = $('#confirmDeleteModal').data('contact-id');
-        await deleteContact(contactId);
-
-        $('#confirmDeleteModal').modal('hide');
-    });
 
     // mask - descomentar depois
     // const cellphone = $('#cellphone');
@@ -143,15 +136,30 @@ $(document).ready(function() {
                 },
                 error: function (err) {
                     console.error(err);
-                    alert('Não foi possível cadastrar o contato!');
+                    showToast('Não foi possível cadastrar o contato!');
                 }
             });
 
         } catch (err) {
             console.error(err);
-            alert('Não foi possível cadastrar o contato!');
+            showToast('Não foi possível cadastrar o contato!');
         }
     };
+
+    $(document).on('click', '#btn-delete-contact', function() {
+        const contactId = $(this).data('contact-id');
+
+        $('#confirmDeleteModal').data('contact-id', contactId);
+
+        $('#confirmDeleteModal').modal('show');
+    }); 
+
+    $('#confirmDeleteBtn').on('click', async function() {
+        const contactId = $('#confirmDeleteModal').data('contact-id');
+        await deleteContact(contactId);
+
+        $('#confirmDeleteModal').modal('hide');
+    });
 
     const contactELm = $('#form-contact');
     contactELm.on('submit', function (e) {
@@ -161,4 +169,5 @@ $(document).ready(function() {
 
     listContacts();
 });
+
 
