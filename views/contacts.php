@@ -1,5 +1,5 @@
     <!DOCTYPE html>
-    <html lang="PT-bt">
+    <html lang="PT-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,7 @@
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
         <script src="../App/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
-        
         <script src="../App/assets/js/contacts.js"></script>
         <script src="../App/assets/js/main.js"></script>
         <title>Contatos</title>
@@ -72,7 +70,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12 text-end">
-                                   <button type="submit" class="btn btn-primary" id="submitButton">Cadastrar Contato</button>
+                                 <button type="submit" class="btn btn-primary" id="submitButton">Cadastrar Contato</button>
                                 </div>
                             </div>
                         </div>

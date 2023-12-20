@@ -22,8 +22,6 @@ const updateContact = async (id) => {
         $('#submitButton').text('Atualizar Contato');
 
         $('.btn-primary').on('click', async (e) => {
-            e.preventDefault();
-            location.reload(true);
             try {
                 await $.ajax({
                     url: `${location.origin}/api/contacts/update/${id}`,
@@ -38,6 +36,9 @@ const updateContact = async (id) => {
                         phone: $('#phone').val()
                     }),
                 });
+
+                showToast('Contato atualizo com sucesso!');
+
   
             } catch (err) {
                 console.error(err);
@@ -88,7 +89,7 @@ const listContacts = async () => {
                     <td>
                         <button class="btn btn-info" onclick="updateContact(${contact.id})">Editar</button>
                         <button id="btn-delete-contact" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-contact-id="${contact.id}">Excluir</button>
-                        </td>
+                    </td>
                 </tr>
             `);
         });
@@ -101,7 +102,6 @@ const listContacts = async () => {
 
 $(document).ready(function() {
 
-    // mask - descomentar depois
     const cellphone = $('#cellphone');
     cellphone.inputmask('(99) 99999-9999');
 
@@ -151,15 +151,15 @@ $(document).ready(function() {
             showToast('Não foi possível cadastrar o contato!');
         }
     };
+    
 
-    $(document).on('click', '#btn-delete-contact', function() {
+    $(document).on('click', '#btn-delete-contact', function(e) {
+        e.preventDefault();
         const contactId = $(this).data('contact-id');
-
         $('#confirmDeleteModal').data('contact-id', contactId);
-
         $('#confirmDeleteModal').modal('show');
-    }); 
-
+    });
+    
     $('#confirmDeleteBtn').on('click', async function() {
         const contactId = $('#confirmDeleteModal').data('contact-id');
         await deleteContact(contactId);

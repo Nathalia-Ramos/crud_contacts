@@ -110,8 +110,6 @@ final class ContactsControllers  {
             if(isset($data['cellphone'])){
                 $cellphone = preg_replace('/[\(\)\-\s]/', '', $data['cellphone']);
 
-                var_dump($cellphone);
-
                 if (strlen($cellphone) > 11) {
                     $response
                         ->withStatus(400)
@@ -134,7 +132,7 @@ final class ContactsControllers  {
                     return  $response;
                 }
             }
-            
+
             $data['phone'] = $phone;
             $data['cellphone'] = $cellphone;
 
@@ -250,28 +248,37 @@ final class ContactsControllers  {
                     return  $response;          
             }
 
-            if (isset($data['phone']) && empty(trim($data['phone']))) {
+            if(isset($data['phone'])){
+                $phone = preg_replace('/[\(\)\-\s]/', '', $data['phone']);
+                if (strlen($phone) > 10) {
                     $response
                         ->withStatus(400)
                         ->withHeader('Content-Type', 'application/json')
                         ->getBody()
-                        ->write(json_encode(['error' => 'O campo phone não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
-    
-                    return  $response;                       
+                        ->write(json_encode(['error' => 'Informe um número de telefone válido.'], JSON_UNESCAPED_UNICODE)); 
+                    
+                    return $response;
+                }
+
+            }
+           
+            if(isset($data['cellphone'])){
+                $cellphone = preg_replace('/[\(\)\-\s]/', '', $data['cellphone']);
+
+                if (strlen($cellphone) > 11) {
+                    $response
+                        ->withStatus(400)
+                        ->withHeader('Content-Type', 'application/json')
+                        ->getBody()
+                        ->write(json_encode(['error' => 'Informe um número de celular válido.'], JSON_UNESCAPED_UNICODE));
+                    
+                    return $response;
+                }
             }
 
-            if (isset($data['cellphone']) && empty(trim($data['cellphone']))) {
-                    $response
-                        ->withStatus(400)
-                        ->withHeader('Content-Type', 'application/json')
-                        ->getBody()
-                        ->write(json_encode(['error' => 'O campo cellphone não pode ser vazio.'], JSON_UNESCAPED_UNICODE));
-    
-                    return  $response;
-                }          
-
-            $lastDataContact = $contact->getContactById($contactId);
-
+            $data['phone'] = $phone;
+            $data['cellphone'] = $cellphone;
+            
             $contact->updateContactById(
                 $data['full_name'] ,
                 $data['birthday'] ,
