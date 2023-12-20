@@ -38,7 +38,10 @@ const updateContact = async (id) => {
                 });
 
                 showToast('Contato atualizo com sucesso!');
-
+                
+                setTimeout(() => {
+                    location.reload(true);
+                }, 3000);       
   
             } catch (err) {
                 showToast('Erro ao atualizar o contato!');
